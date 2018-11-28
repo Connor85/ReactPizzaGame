@@ -1,9 +1,18 @@
 import React from 'react';
+import Order from './Order';
 
-function OrderList(){
+function OrderList(props){
   return(
     <div>
-      orders:
+      {props.masterOrderList.map((order) => (
+        <Order
+        name={order.name}
+        ingredients={order.ingredients}
+        />
+
+
+
+      ))}
     </div>
   )
 }

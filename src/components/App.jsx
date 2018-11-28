@@ -3,7 +3,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Header from './Header';
 import PizzaTable from './PizzaTable';
-import Order from './Order';
+import OrderList from './OrderList';
 import Score from './Score';
 
 /*
@@ -18,75 +18,97 @@ class App extends React.Component {
       masterIngredientList: {
         masterCrustList: [
           {
+            id: 1,
             type: "Regular",
             points: 7
           },
           {
+            id: 2,
             type: "Deep Dish",
             points: 8
           },
           {
+            id: 3,
             type: "Thin",
             points: 6
           },
         ],
         masterSauceList: [
           {
+            id: 10,
             type: "Red",
             points: 1
           },
           {
+            id: 11,
             type: "White",
             points: 2
           },
           {
+            id: 12,
             type: "Garlic/Oil",
             points: 2
           },
           {
+            id: 13,
             type: "BBQ",
             points: 3
           }
         ],
         masterToppingsList: [
           {
+            id: 21,
             type: "Pepperoni",
             points: 2
           },
           {
+            id: 22,
             type: "Sausage",
             points: 2
           },
           {
+            id: 23,
             type: "Canadian Bacon",
             points: 2
           },
           {
+            id: 24,
             type: "Olives",
             points: 3
           },
           {
+            id: 25,
             type: "Pineapple",
             points: 3
           },
           {
+            id: 26,
             type: "Red Onions",
             points: 3
           },
           {
+            id: 27,
             type: "Mushrooms",
             points: 3
           },
           {
+            id: 28,
             type: "Chicken",
             points: 3
           },
           {
+            id: 29,
             type: "Bacon",
             points: 3
           },
-        ]
-      }
+        ],
+      },
+      masterOrderList: [
+        {
+          name: "Deep Dish Pepperoni with red sauce",
+          ingredients: [2, 10, 21]
+        }
+      ]
     }
   }
 
@@ -99,7 +121,7 @@ class App extends React.Component {
         <Header />
 
         <PizzaTable masterIngredientList={this.state.masterIngredientList}/>
-        <Order />
+        <OrderList masterOrderList={this.state.masterOrderList}/>
         <Score />
         {/* <Switch>
           <Route exact path='/' component={} />
