@@ -1,5 +1,6 @@
 import React from 'react';
 import Sauce from './Sauce';
+import { v4 } from 'uuid';
 
 function SauceList(props){
   return(
@@ -8,6 +9,7 @@ function SauceList(props){
       <Sauce
         type={sauce.type}
         points={sauce.points}
+        key={sauce.id}
       />
     ))}
     </div>

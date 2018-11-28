@@ -1,5 +1,6 @@
 import React from 'react';
 import Crust from './Crust';
+import { v4 } from 'uuid';
 
 function CrustList(props){
   return(
@@ -8,6 +9,7 @@ function CrustList(props){
         <Crust
           type={crust.type}
           points={crust.points}
+          key={crust.id}
         />
       ))}
     </div>

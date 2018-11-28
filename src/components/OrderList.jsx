@@ -1,5 +1,6 @@
 import React from 'react';
 import Order from './Order';
+import { v4 } from 'uuid';
 
 function OrderList(props){
   return(
@@ -8,6 +9,7 @@ function OrderList(props){
         <Order
         name={order.name}
         ingredients={order.ingredients}
+        key={order.id}
         />
 
 
