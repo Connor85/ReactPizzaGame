@@ -1,11 +1,11 @@
 import React from 'react';
 
-function OrderList(){
+function Score(){
   return(
     <div>
-      orders:
+    score
     </div>
   )
 }
 
-export default OrderList;
+export default Score;
