@@ -6,7 +6,7 @@ function Order(props){
       Order: {props.name}<br></br>
       Requires: {props.ingredients}
     </div>
-  )
+  );
 }
 
 export default Order;

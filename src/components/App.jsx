@@ -5,6 +5,7 @@ import Header from './Header';
 import PizzaTable from './PizzaTable';
 import OrderList from './OrderList';
 import Score from './Score';
+import Moment from 'moment';
 
 /*
   import { Link } from 'react-router-dom';
@@ -110,6 +111,22 @@ class App extends React.Component {
         }
       ]
     }
+    this.waitOrderNewPizza = this.waitOrderNewPizza.bind(this);
+  }
+
+  componentDidMount() {
+    this.pizzaTimer = setInterval(() => this.waitOrderNewPizza(), 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.pizzaTimer);
+  }
+
+  waitOrderNewPizza() {
+    console.log("newpizza ordered!")
+    // let orderListCopy = this.state.masterOrderList.slice();
+    // orderListCopy.push({name: "new pizza",ingredients: [1,10,21]});
+    // this.setState({ masterOrderList: orderListCopy});
   }
 
   render() {
