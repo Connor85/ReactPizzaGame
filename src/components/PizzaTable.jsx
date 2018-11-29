@@ -8,13 +8,13 @@ function PizzaTable(props) {
   return (
     <div>
       <CrustList 
-      masterCrustList={props.masterIngredientList.masterCrustList} 
-      addCrustToCurrentPizza={props.addCrustToCurrentPizza}
+        masterCrustList={props.masterIngredientList.masterCrustList} 
+        addCrustToCurrentPizza={props.addCrustToCurrentPizza}
       />
       <hr />
       <SauceList 
-      masterSauceList={props.masterIngredientList.masterSauceList} 
-      addSauceToCurrentPizza={props.addSauceToCurrentPizza}
+        masterSauceList={props.masterIngredientList.masterSauceList} 
+        addSauceToCurrentPizza={props.addSauceToCurrentPizza}
       />
       <hr />
       <ToppingsList 
@@ -23,7 +23,7 @@ function PizzaTable(props) {
         removeToppingsToCurrentPizza={props.removeToppingsToCurrentPizza}        
       />
       <hr />
-      {console.log("pizzatable comp", props)}
+      {/* {console.log("pizzatable comp", props)} */}
       <CurrentPizza
         getCrustName={props.getCrustName}
         getSaucetName={props.getSaucetName}
@@ -32,7 +32,7 @@ function PizzaTable(props) {
         removeToppingsToCurrentPizza={props.removeToppingsToCurrentPizza}         
       />
     </div>
-  )
+  );
 }
 
 export default PizzaTable;

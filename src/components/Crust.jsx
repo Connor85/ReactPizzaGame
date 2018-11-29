@@ -7,7 +7,7 @@ function Crust(props){
       <button onClick={props.addCrustToCurrentPizza} className='btn btn-info'>Add {props.type}</button>
       <br></br>
     </div>
-  )
+  );
 }
 
 export default Crust;

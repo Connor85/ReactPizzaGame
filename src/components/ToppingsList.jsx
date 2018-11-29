@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 function ToppingsList(props){
   return (
     <div>
-    {/* {console.log("toppingslist comp", props)} */}
+      {/* {console.log("toppingslist comp", props)} */}
       {props.masterToppingsList.map((topping, index)=>(
         <Toppings 
           type={topping.type}
@@ -17,7 +17,7 @@ function ToppingsList(props){
         />
       ))}
     </div>
-  )
+  );
 }
 
 export default ToppingsList;

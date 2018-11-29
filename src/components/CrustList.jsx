@@ -15,7 +15,7 @@ function CrustList(props){
         />
       ))}
     </div>
-  )
+  );
 }
 
 export default CrustList;

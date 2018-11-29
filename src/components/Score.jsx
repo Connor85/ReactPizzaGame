@@ -5,7 +5,7 @@ function Score(){
     <div>
     score
     </div>
-  )
+  );
 }
 
 export default Score;

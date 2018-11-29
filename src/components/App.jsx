@@ -20,93 +20,93 @@ class App extends React.Component {
         masterCrustList: [
           {
             identifier: 1,
-            type: "Regular",
+            type: 'Regular',
             points: 7
           },
           {
             identifier: 2,
-            type: "Deep Dish",
+            type: 'Deep Dish',
             points: 8
           },
           {
             identifier: 3,
-            type: "Thin",
+            type: 'Thin',
             points: 6
           },
         ],
         masterSauceList: [
           {
             identifier: 10,
-            type: "Red",
+            type: 'Red',
             points: 1
           },
           {
             identifier: 11,
-            type: "White",
+            type: 'White',
             points: 2
           },
           {
             identifier: 12,
-            type: "Garlic/Oil",
+            type: 'Garlic/Oil',
             points: 2
           },
           {
             identifier: 13,
-            type: "BBQ",
+            type: 'BBQ',
             points: 3
           }
         ],
         masterToppingsList: [
           {
             identifier: 21,
-            type: "Pepperoni",
+            type: 'Pepperoni',
             points: 2
           },
           {
             identifier: 22,
-            type: "Sausage",
+            type: 'Sausage',
             points: 2
           },
           {
             identifier: 23,
-            type: "Canadian Bacon",
+            type: 'Canadian Bacon',
             points: 2
           },
           {
             identifier: 24,
-            type: "Olives",
+            type: 'Olives',
             points: 3
           },
           {
             identifier: 25,
-            type: "Pineapple",
+            type: 'Pineapple',
             points: 3
           },
           {
             identifier: 26,
-            type: "Red Onions",
+            type: 'Red Onions',
             points: 3
           },
           {
             identifier: 27,
-            type: "Mushrooms",
+            type: 'Mushrooms',
             points: 3
           },
           {
             identifier: 28,
-            type: "Chicken",
+            type: 'Chicken',
             points: 3
           },
           {
             identifier: 29,
-            type: "Bacon",
+            type: 'Bacon',
             points: 3
           },
         ],
       },
       masterOrderList: [
         {
-          name: "Deep Dish Pepperoni with red sauce",
+          name: 'Deep Dish Pepperoni with red sauce',
           crust: [2],
           sauce: [10],
           toppings: [21, 23],
@@ -119,7 +119,7 @@ class App extends React.Component {
           toppings: [23, 25],
         }
       ]
-    }
+    };
     this.waitOrderNewPizza = this.waitOrderNewPizza.bind(this);
     this.getCrustName = this.getCrustName.bind(this);
     this.getSaucetName = this.getSaucetName.bind(this);
@@ -147,7 +147,7 @@ class App extends React.Component {
 
 
   componentDidMount() {
-    // this.pizzaTimer = setInterval(() => this.waitOrderNewPizza(), 5000);
+    this.pizzaTimer = setInterval(() => this.waitOrderNewPizza(), 5000);
   }
 
   componentWillUnmount() {
@@ -156,7 +156,9 @@ class App extends React.Component {
 
   waitOrderNewPizza() {
     let orderListCopy = this.state.masterOrderList.slice();
-    orderListCopy.push({ name: "new pizza", ingredients: [1, 10, 21] });
+    const newPizza = this.generateNewPizza();
+    orderListCopy.push(newPizza);
+    console.log("newpizza", orderListCopy.length, newPizza);
     this.setState({ masterOrderList: orderListCopy });
   }
 
@@ -165,30 +167,48 @@ class App extends React.Component {
     if (newCurrentPizza[0].toppings.includes(index)) {
     } else {
       newCurrentPizza[0].toppings.push(index);
-      this.setState({ currentPizza: newCurrentPizza })
+      this.setState({ currentPizza: newCurrentPizza });
     }
   }
 
   removeToppingsToCurrentPizza(index) {
-    console.log("removetoppings", index);
+    // console.log("removetoppings", index);
     let newCurrentPizza = this.state.currentPizza.slice();
     let location = newCurrentPizza[0].toppings.indexOf(index);
     if (location !== -1) {
       newCurrentPizza[0].toppings.splice(location, 1);
-      this.setState({ currentPizza: newCurrentPizza })
+      this.setState({ currentPizza: newCurrentPizza });
     }
   }
- 
-  addCrustToCurrentPizza(index){
+
+  addCrustToCurrentPizza(index) {
     let newCurrentPizza = this.state.currentPizza.slice();
-    newCurrentPizza[0].crust[0]=(index);
-    this.setState({currentPizza: newCurrentPizza});
+    newCurrentPizza[0].crust[0] = (index);
+    this.setState({ currentPizza: newCurrentPizza });
   }
-  
-  addSauceToCurrentPizza(index){
+
+  addSauceToCurrentPizza(index) {
     let newCurrentPizza = this.state.currentPizza.slice();
     newCurrentPizza[0].sauce[0] = index;
-    this.setState({currentPizza: newCurrentPizza});
+    this.setState({ currentPizza: newCurrentPizza });
+  }
+
+  generateNewPizza() {
+    let newCrustIndex = Math.floor((Math.random() * this.state.masterIngredientList.masterCrustList.length));
+    let newSauceIndex = Math.floor((Math.random() * this.state.masterIngredientList.masterSauceList.length));
+    let randomToppingQuantity = Math.ceil((Math.random() * 3))
+    let newToppings = [];
+    console.log(newCrustIndex, newSauceIndex,randomToppingQuantity);
+    for (let i = 0; i < randomToppingQuantity; i++) {
+      let newToppingIndex = Math.floor((Math.random() * this.state.masterIngredientList.masterToppingList.length));
+      newToppings.push(newTopping[newToppingIndex]);
+    }
+    return {
+      name: 'Deep Dish Pepperoni with red sauce',
+      crust: [newCrustIndex],
+      sauce: [newSauceIndex],
+      toppings: newToppings,
+    }
   }
 
   render() {

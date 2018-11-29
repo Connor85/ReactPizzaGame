@@ -5,7 +5,7 @@ function Header(){
     <div>
       <h1 className='jumbotron'>Pizza Time!</h1>
     </div>
-  )
+  );
 }
 
 export default Header;

@@ -7,16 +7,16 @@ function OrderList(props){
     <div>
       {props.masterOrderList.map((order) => (
         <Order
-        name={order.name}
-        ingredients={order.ingredients}
-        key={order.id}
+          name={order.name}
+          ingredients={order.ingredients}
+          key={order.id}
         />
 
 
 
       ))}
     </div>
-  )
+  );
 }
 
 export default OrderList;

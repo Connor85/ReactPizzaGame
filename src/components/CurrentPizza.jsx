@@ -3,8 +3,8 @@ import React from 'react';
 function CurrentPizza(props) {
 
   function onDeleteToppings(id) {
-    console.log("remove", id);
-    props.removeToppingsToCurrentPizza(id)
+    console.log('remove', id);
+    props.removeToppingsToCurrentPizza(id);
   }
   return (
     <div>
@@ -19,20 +19,20 @@ function CurrentPizza(props) {
         </div>
       ))}</h6>
       Sauces:
-     <h6>{props.currentPizza[0].sauce.map((sauce) => (
-       <div>
+      <h6>{props.currentPizza[0].sauce.map((sauce) => (
+        <div>
           {props.getSaucetName(sauce)}
-         </div>
+        </div>
       ))}</h6>
       Toppings:
       <h6>{props.currentPizza[0].toppings.map((toppings) => (
         <div>
-        {console.log(props)}
+          {/* {console.log(props)} */}
           {props.getToppingtName(toppings)}
           <span onClick={() => props.removeToppingsToCurrentPizza(toppings)} className="deleteLink"> - Remove </span>
           <br></br>
         </div>
-        ))}</h6>
+      ))}</h6>
     </div>
   );
 }
