@@ -122,8 +122,8 @@ class App extends React.Component {
     };
     this.waitOrderNewPizza = this.waitOrderNewPizza.bind(this);
     this.getCrustName = this.getCrustName.bind(this);
-    this.getSaucetName = this.getSaucetName.bind(this);
-    this.getToppingtName = this.getToppingtName.bind(this);
+    this.getSauceName = this.getSauceName.bind(this);
+    this.getToppingName = this.getToppingName.bind(this);
     this.addToppingsToCurrentPizza = this.addToppingsToCurrentPizza.bind(this);
     this.removeToppingsToCurrentPizza = this.removeToppingsToCurrentPizza.bind(this);
     this.addCrustToCurrentPizza = this.addCrustToCurrentPizza.bind(this);
@@ -135,12 +135,12 @@ class App extends React.Component {
     return this.state.masterIngredientList.masterCrustList[nameIndex].type;
   }
 
-  getSaucetName(index) {
+  getSauceName(index) {
     let nameIndex = this.state.masterIngredientList.masterSauceList.map(pizza => pizza.identifier).indexOf(index);
     return this.state.masterIngredientList.masterSauceList[nameIndex].type;
 
   }
-  getToppingtName(index) {
+  getToppingName(index) {
     let nameIndex = this.state.masterIngredientList.masterToppingsList.map(pizza => pizza.identifier).indexOf(index);
     return this.state.masterIngredientList.masterToppingsList[nameIndex].type;
   }
@@ -196,18 +196,23 @@ class App extends React.Component {
   generateNewPizza() {
     let newCrustIndex = Math.floor((Math.random() * this.state.masterIngredientList.masterCrustList.length));
     let newSauceIndex = Math.floor((Math.random() * this.state.masterIngredientList.masterSauceList.length));
-    let randomToppingQuantity = Math.ceil((Math.random() * 3))
+    let randomToppingQuantity = Math.ceil((Math.random() * 3)+2)
     let newToppings = [];
-    console.log(newCrustIndex, newSauceIndex,randomToppingQuantity);
+    let newToppingsName = '';
+    let toppingLength = this.state.masterIngredientList.masterToppingsList.length;
+    // console.log(newCrustIndex, newSauceIndex,randomToppingQuantity, toppingLength);
     for (let i = 0; i < randomToppingQuantity; i++) {
-      let newToppingIndex = Math.floor((Math.random() * this.state.masterIngredientList.masterToppingList.length));
-      newToppings.push(newTopping[newToppingIndex]);
+      let newToppingIndex = Math.floor((Math.random() * toppingLength));
+      // console.log(newToppingIndex, this.getToppingName(newToppingIndex));
+      newToppings.push(newToppingIndex);
+      newToppingsName += this.state.masterIngredientList.masterToppingsList[newToppingIndex].type + ", ";
     }
+    let nameString = this.state.masterIngredientList.masterCrustList[newCrustIndex].type + " Pizza with " + this.state.masterIngredientList.masterSauceList[newSauceIndex].type + " with " + newToppingsName;
     return {
-      name: 'Deep Dish Pepperoni with red sauce',
+      name: nameString,
       crust: [newCrustIndex],
       sauce: [newSauceIndex],
-      toppings: newToppings,
+      toppings: newToppings
     }
   }
 
@@ -224,8 +229,8 @@ class App extends React.Component {
           addSauceToCurrentPizza={this.addSauceToCurrentPizza}
           masterIngredientList={this.state.masterIngredientList}
           getCrustName={this.getCrustName}
-          getSaucetName={this.getSaucetName}
-          getToppingtName={this.getToppingtName}
+          getSauceName={this.getSauceName}
+          getToppingName={this.getToppingName}
           currentPizza={this.state.currentPizza}
           addToppingsToCurrentPizza={this.addToppingsToCurrentPizza}
           removeToppingsToCurrentPizza={this.removeToppingsToCurrentPizza}

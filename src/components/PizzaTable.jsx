@@ -26,8 +26,8 @@ function PizzaTable(props) {
       {/* {console.log("pizzatable comp", props)} */}
       <CurrentPizza
         getCrustName={props.getCrustName}
-        getSaucetName={props.getSaucetName}
-        getToppingtName={props.getToppingtName}
+        getSauceName={props.getSauceName}
+        getToppingName={props.getToppingName}
         currentPizza={props.currentPizza}
         removeToppingsToCurrentPizza={props.removeToppingsToCurrentPizza}         
       />
