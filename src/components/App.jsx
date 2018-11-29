@@ -16,6 +16,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      totalScore: 0,
       masterIngredientList: {
         masterCrustList: [
           {
@@ -107,7 +108,7 @@ class App extends React.Component {
       masterOrderList: [
         // {
         //   name: 'Deep Dish Pepperoni with red sauce',
-        //   crust: [2],
+        //   crust: [2],v
         //   sauce: [10],
         //   toppings: [21, 23],
         // }
@@ -159,7 +160,6 @@ class App extends React.Component {
     let orderListCopy = this.state.masterOrderList.slice();
     const newPizza = this.generateNewPizza();
     orderListCopy.push(newPizza);
-    console.log("newpizza", orderListCopy.length, newPizza);
     this.setState({ masterOrderList: orderListCopy });
   }
 
@@ -201,10 +201,8 @@ class App extends React.Component {
     let newToppings = [];
     let newToppingsName = '';
     let toppingLength = this.state.masterIngredientList.masterToppingsList.length;
-    // console.log(newCrustIndex, newSauceIndex,randomToppingQuantity, toppingLength);
     for (let i = 0; i < randomToppingQuantity; i++) {
       let newToppingIndex = Math.floor((Math.random() * toppingLength));
-      // console.log(newToppingIndex, this.getToppingName(newToppingIndex));
       newToppings.push(newToppingIndex);
       newToppingsName += this.state.masterIngredientList.masterToppingsList[newToppingIndex].type + ", ";
     }
@@ -218,25 +216,31 @@ class App extends React.Component {
   }
 
   handleMatchPizza() {
-    console.log("check pizza matches");
     let currentPizzaCopy = this.state.currentPizza.slice();
     let masterOrderListCopy = this.state.masterOrderList.slice();
-    // console.log(currentPizzaCopy[0]);
     currentPizzaCopy[0].toppings.sort((a, b) => (a - b));
     for (let i = 0; i < this.state.masterOrderList.length - 1; i++) {
       masterOrderListCopy[i].toppings.sort((a, b) => (a - b));
-      // console.log(masterOrderListCopy);
+      let totScore = 0;
       if (currentPizzaCopy[0].crust.join('') === masterOrderListCopy[i].crust.join('') && currentPizzaCopy[0].sauce.join('') === masterOrderListCopy[i].sauce.join('') && currentPizzaCopy[0].toppings.join('') === masterOrderListCopy[i].toppings.join('')) {
         console.log("Pizza Matches #" + i)
+        totScore += 1 + masterOrderListCopy[i].toppings.length;
+        this.setState({ totalScore: totScore})
+        currentPizzaCopy[0] = {
+          crust: [0],
+          sauce: [0],
+          toppings: [],
+        };
+        console.log(totScore);
+        masterOrderListCopy.splice(i,1);
+        this.setState({ masterOrderList: masterOrderListCopy})
+        this.setState({ currentPizza: [currentPizzaCopy[0]] });
         return true;
       }
-      // console.log(currentPizzaCopy[0].crust.join(''), masterOrderListCopy[i].crust.join(''), currentPizzaCopy[0].sauce.join('') , masterOrderListCopy[i].sauce.join('') , currentPizzaCopy[0].toppings.join('') ,masterOrderListCopy[i].toppings.join(''));
-      // console.log(currentPizzaCopy[0].crust.join('') === masterOrderListCopy[i].crust.join('') , currentPizzaCopy[0].sauce.join('') === masterOrderListCopy[i].sauce.join('') , currentPizzaCopy[0].toppings.join('') === masterOrderListCopy[i].toppings.join())
     }
     console.log("No matches, try again.")
     return false;
   }
-
 
   render() {
     return (
@@ -261,7 +265,7 @@ class App extends React.Component {
             />
           </div>
           <div className='col-6'>
-            <Score />
+            <Score totalScore={this.state.totalScore}/>
             <OrderList masterOrderList={this.state.masterOrderList} />
           </div>
           {/* <Switch>

@@ -9,7 +9,7 @@ function OrderList(props){
         <Order
           name={order.name}
           ingredients={order.ingredients}
-          key={order.id}
+          key={order.identifier}
           index={index+1}
         />
 

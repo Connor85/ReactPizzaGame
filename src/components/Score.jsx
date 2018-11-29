@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Score() {
+function Score(props) {
   return (
     <div>
       <style jsx>{`
@@ -13,7 +13,7 @@ function Score() {
             background: lightyellow;
           }
         `}</style>
-      <h3 className='score'>Score: ####</h3>
+      <h3 className='score'>Score: {props.totalScore}</h3>
     </div>
   );
 }

@@ -20,12 +20,12 @@ function ToppingsList(props) {
       <div className='topList'>
         {/* {console.log("toppingslist comp", props)} */}
         <h2 className='topHeader'>Toppings</h2>
-        {props.masterToppingsList.map((topping, index) => (
+        {props.masterToppingsList.map((topping) => (
           <div className='row'>
             <Toppings
               type={topping.type}
               points={topping.points}
-              key={index}
+              key={topping.identifier}
               identifier={topping.identifier}
               addToppingsToCurrentPizza={() => props.addToppingsToCurrentPizza(topping.identifier)}
               removeToppingsToCurrentPizza={() => props.removeToppingsToCurrentPizza(topping.identifier)}
