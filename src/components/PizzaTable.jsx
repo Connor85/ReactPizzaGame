@@ -7,13 +7,23 @@ import CurrentPizza from './CurrentPizza';
 function PizzaTable(props) {
   return (
     <div>
-      <CrustList masterCrustList={props.masterIngredientList.masterCrustList} />
+      <CrustList 
+      masterCrustList={props.masterIngredientList.masterCrustList} 
+      addCrustToCurrentPizza={props.addCrustToCurrentPizza}
+      />
       <hr />
-      <SauceList masterSauceList={props.masterIngredientList.masterSauceList} />
+      <SauceList 
+      masterSauceList={props.masterIngredientList.masterSauceList} 
+      addSauceToCurrentPizza={props.addSauceToCurrentPizza}
+      />
       <hr />
-      <ToppingsList masterToppingsList={props.masterIngredientList.masterToppingsList} />
+      <ToppingsList 
+        masterToppingsList={props.masterIngredientList.masterToppingsList} 
+        addToppingsToCurrentPizza={props.addToppingsToCurrentPizza}
+        removeToppingsToCurrentPizza={props.removeToppingsToCurrentPizza}        
+      />
       <hr />
-      {/* {console.log(props)} */}
+      {/* {console.log("pizzatable comp", props)} */}
       <CurrentPizza
         getCrustName={props.getCrustName}
         getSaucetName={props.getSaucetName}

@@ -124,26 +124,30 @@ class App extends React.Component {
     this.getCrustName = this.getCrustName.bind(this);
     this.getSaucetName = this.getSaucetName.bind(this);
     this.getToppingtName = this.getToppingtName.bind(this);
+    this.addToppingsToCurrentPizza = this.addToppingsToCurrentPizza.bind(this);
+    this.removeToppingsToCurrentPizza = this.removeToppingsToCurrentPizza.bind(this);
+    this.addCrustToCurrentPizza = this.addCrustToCurrentPizza.bind(this);
+    this.addSauceToCurrentPizza = this.addSauceToCurrentPizza.bind(this);
   }
 
   getCrustName(index) {
-    let nameIndex = this.state.masterIngredientList.masterCrustList.map( pizza => pizza.identifier).indexOf(index);
+    let nameIndex = this.state.masterIngredientList.masterCrustList.map(pizza => pizza.identifier).indexOf(index);
     return this.state.masterIngredientList.masterCrustList[nameIndex].type;
   }
 
   getSaucetName(index) {
-    let nameIndex = this.state.masterIngredientList.masterSauceList.map( pizza => pizza.identifier).indexOf(index);
+    let nameIndex = this.state.masterIngredientList.masterSauceList.map(pizza => pizza.identifier).indexOf(index);
     return this.state.masterIngredientList.masterSauceList[nameIndex].type;
 
   }
   getToppingtName(index) {
-    let nameIndex = this.state.masterIngredientList.masterToppingsList.map( pizza => pizza.identifier).indexOf(index);
+    let nameIndex = this.state.masterIngredientList.masterToppingsList.map(pizza => pizza.identifier).indexOf(index);
     return this.state.masterIngredientList.masterToppingsList[nameIndex].type;
   }
 
 
   componentDidMount() {
-    this.pizzaTimer = setInterval(() => this.waitOrderNewPizza(), 5000);
+    // this.pizzaTimer = setInterval(() => this.waitOrderNewPizza(), 5000);
   }
 
   componentWillUnmount() {
@@ -151,10 +155,39 @@ class App extends React.Component {
   }
 
   waitOrderNewPizza() {
-    console.log("newpizza ordered!")
     let orderListCopy = this.state.masterOrderList.slice();
     orderListCopy.push({ name: "new pizza", ingredients: [1, 10, 21] });
     this.setState({ masterOrderList: orderListCopy });
+  }
+
+  addToppingsToCurrentPizza(index) {
+    let newCurrentPizza = this.state.currentPizza.slice();
+    if (newCurrentPizza[0].toppings.includes(index)) {
+    } else {
+      newCurrentPizza[0].toppings.push(index);
+      this.setState({ currentPizza: newCurrentPizza })
+    }
+  }
+
+  removeToppingsToCurrentPizza(index) {
+    let newCurrentPizza = this.state.currentPizza.slice();
+    let location = newCurrentPizza[0].toppings.indexOf(index);
+    if (location !== -1) {
+      newCurrentPizza[0].toppings.splice(location, 1);
+      this.setState({ currentPizza: newCurrentPizza })
+    }
+  }
+ 
+  addCrustToCurrentPizza(index){
+    let newCurrentPizza = this.state.currentPizza.slice();
+    newCurrentPizza[0].crust[0]=(index);
+    this.setState({currentPizza: newCurrentPizza});
+  }
+  
+  addSauceToCurrentPizza(index){
+    let newCurrentPizza = this.state.currentPizza.slice();
+    newCurrentPizza[0].sauce[0] = index;
+    this.setState({currentPizza: newCurrentPizza});
   }
 
   render() {
@@ -166,11 +199,15 @@ class App extends React.Component {
         <Header />
 
         <PizzaTable
+          addCrustToCurrentPizza={this.addCrustToCurrentPizza}
+          addSauceToCurrentPizza={this.addSauceToCurrentPizza}
           masterIngredientList={this.state.masterIngredientList}
           getCrustName={this.getCrustName}
           getSaucetName={this.getSaucetName}
           getToppingtName={this.getToppingtName}
           currentPizza={this.state.currentPizza}
+          addToppingsToCurrentPizza={this.addToppingsToCurrentPizza}
+          removeToppingsToCurrentPizza={this.removeToppingsToCurrentPizza}
         />
         <OrderList masterOrderList={this.state.masterOrderList} />
         <Score />

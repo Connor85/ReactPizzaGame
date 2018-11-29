@@ -10,6 +10,7 @@ function SauceList(props){
         type={sauce.type}
         points={sauce.points}
         key={sauce.id}
+        addSauceToCurrentPizza={()=> props.addSauceToCurrentPizza(sauce.identifier)}
       />
     ))}
     </div>
