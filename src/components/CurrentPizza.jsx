@@ -2,34 +2,65 @@ import React from 'react';
 
 function CurrentPizza(props) {
 
+  function handleClickMatchPizza() {
+    props.handleMatchPizza();
+    console.log("RYAN");
+  }
 
   return (
     <div>
-      Current Pizza:
+      <style jsx>{`
+          .tableGlobal {
+            border: 1px black solid;
+            margin:5px;
+            padding:10px;
+            text-align: center;
+          }
+          .toppings {
+            font-size: 30px;
+          }
+          .deleteLink {
+            color: red;
+            font-size: 24px;
+          }
+          .currentHeader {
+            border: 1px black solid;
+            background: lightyellow;
+            height: 40px;
+          }
+          .topHeaders {
+            text-decoration: underline;
+            font-size: 50px;
+            font-weight: bold;
+          }
+        `}</style>
+      <div className='tableGlobal'>
+        <h3 className='currentHeader'>Current Pizza:</h3>
 
-      Crusts:
-      <h6>{props.currentPizza[0].crust.map((crust, index) => (
-        
-        <div className="return" key={index}>
-          {props.getCrustName(crust)}
-          <br></br>
-        </div>
-      ))}</h6>
-      Sauces:
-      <h6>{props.currentPizza[0].sauce.map((sauce) => (
-        <div>
-          {props.getSauceName(sauce)}
-        </div>
-      ))}</h6>
-      Toppings:
-      <h6>{props.currentPizza[0].toppings.map((toppings) => (
-        <div>
-          {/* {console.log(props)} */}
-          {props.getToppingName(toppings)}
-          <span onClick={() => props.removeToppingsToCurrentPizza(toppings)} className="deleteLink"> - Remove </span>
-          <br></br>
-        </div>
-      ))}</h6>
+        <h4 className='topHeaders'>Crust:</h4>
+        <h6>{props.currentPizza[0].crust.map((crust, index) => (
+          <div key={index}>
+            <h5 className='toppings'>{props.getCrustName(crust)}</h5>
+          </div>
+        ))}</h6>
+        <h4 className='topHeaders'>Sauce:</h4>
+        <h6>{props.currentPizza[0].sauce.map((sauce) => (
+          <div>
+            <h5 className='toppings'>{props.getSauceName(sauce)}</h5>
+          </div>
+        ))}</h6>
+        <h4 className='topHeaders'>Toppings:</h4>
+        <h6>{props.currentPizza[0].toppings.map((toppings) => (
+          <div>
+            {/* {console.log(props)} */}
+            <h5 className='toppings'>{props.getToppingName(toppings)} -
+              <span onClick={() => props.removeToppingsToCurrentPizza(toppings)} className="deleteLink"> Remove </span>
+            </h5>
+          </div>
+        ))}</h6>
+        <span onCLick={handleClickMatchPizza} className="btn btn-success">Check Order</span>
+
+      </div>≈
     </div>
   );
 }

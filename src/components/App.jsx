@@ -19,104 +19,104 @@ class App extends React.Component {
       masterIngredientList: {
         masterCrustList: [
           {
-            identifier: 1,
+            identifier: 0,
             type: 'Regular',
             points: 7
           },
           {
-            identifier: 2,
+            identifier: 1,
             type: 'Deep Dish',
             points: 8
           },
           {
-            identifier: 3,
+            identifier: 2,
             type: 'Thin',
             points: 6
           },
         ],
         masterSauceList: [
           {
-            identifier: 10,
-            type: 'Red',
+            identifier: 0,
+            type: 'Red Sauce',
             points: 1
           },
           {
-            identifier: 11,
-            type: 'White',
+            identifier: 1,
+            type: 'White Sauce',
             points: 2
           },
           {
-            identifier: 12,
-            type: 'Garlic/Oil',
+            identifier: 2,
+            type: 'Garlic/Oil Spread',
             points: 2
           },
           {
-            identifier: 13,
-            type: 'BBQ',
+            identifier: 3,
+            type: 'BBQ Sauce',
             points: 3
           }
         ],
         masterToppingsList: [
           {
-            identifier: 21,
+            identifier: 0,
             type: 'Pepperoni',
             points: 2
           },
           {
-            identifier: 22,
+            identifier: 1,
             type: 'Sausage',
             points: 2
           },
           {
-            identifier: 23,
+            identifier: 2,
             type: 'Canadian Bacon',
             points: 2
           },
           {
-            identifier: 24,
+            identifier: 3,
             type: 'Olives',
             points: 3
           },
           {
-            identifier: 25,
+            identifier: 4,
             type: 'Pineapple',
             points: 3
           },
           {
-            identifier: 26,
+            identifier: 5,
             type: 'Red Onions',
             points: 3
           },
           {
-            identifier: 27,
+            identifier: 6,
             type: 'Mushrooms',
             points: 3
           },
           {
-            identifier: 28,
+            identifier: 7,
             type: 'Chicken',
             points: 3
           },
           {
-            identifier: 29,
+            identifier: 8,
             type: 'Bacon',
             points: 3
           },
         ],
       },
       masterOrderList: [
-        {
-          name: 'Deep Dish Pepperoni with red sauce',
-          crust: [2],
-          sauce: [10],
-          toppings: [21, 23],
-        }
+        // {
+        //   name: 'Deep Dish Pepperoni with red sauce',
+        //   crust: [2],
+        //   sauce: [10],
+        //   toppings: [21, 23],
+        // }
       ],
       currentPizza: [
         {
           crust: [1],
-          sauce: [12],
-          toppings: [23, 25],
+          sauce: [2],
+          toppings: [1],
         }
       ]
     };
@@ -128,6 +128,7 @@ class App extends React.Component {
     this.removeToppingsToCurrentPizza = this.removeToppingsToCurrentPizza.bind(this);
     this.addCrustToCurrentPizza = this.addCrustToCurrentPizza.bind(this);
     this.addSauceToCurrentPizza = this.addSauceToCurrentPizza.bind(this);
+    this.handleMatchPizza = this.handleMatchPizza.bind(this);
   }
 
   getCrustName(index) {
@@ -164,11 +165,11 @@ class App extends React.Component {
 
   addToppingsToCurrentPizza(index) {
     let newCurrentPizza = this.state.currentPizza.slice();
-    if (newCurrentPizza[0].toppings.includes(index)) {
-    } else {
-      newCurrentPizza[0].toppings.push(index);
-      this.setState({ currentPizza: newCurrentPizza });
-    }
+    // if (newCurrentPizza[0].toppings.includes(index)) {
+    // } else {
+    newCurrentPizza[0].toppings.push(index);
+    this.setState({ currentPizza: newCurrentPizza });
+    // }
   }
 
   removeToppingsToCurrentPizza(index) {
@@ -196,7 +197,7 @@ class App extends React.Component {
   generateNewPizza() {
     let newCrustIndex = Math.floor((Math.random() * this.state.masterIngredientList.masterCrustList.length));
     let newSauceIndex = Math.floor((Math.random() * this.state.masterIngredientList.masterSauceList.length));
-    let randomToppingQuantity = Math.ceil((Math.random() * 3)+2)
+    let randomToppingQuantity = Math.ceil((Math.random() * 2) + 1)
     let newToppings = [];
     let newToppingsName = '';
     let toppingLength = this.state.masterIngredientList.masterToppingsList.length;
@@ -216,6 +217,27 @@ class App extends React.Component {
     }
   }
 
+  handleMatchPizza() {
+    console.log("check pizza matches");
+    let currentPizzaCopy = this.state.currentPizza.slice();
+    let masterOrderListCopy = this.state.masterOrderList.slice();
+    // console.log(currentPizzaCopy[0]);
+    currentPizzaCopy[0].toppings.sort((a, b) => (a - b));
+    for (let i = 0; i < this.state.masterOrderList.length - 1; i++) {
+      masterOrderListCopy[i].toppings.sort((a, b) => (a - b));
+      // console.log(masterOrderListCopy);
+      if (currentPizzaCopy[0].crust.join('') === masterOrderListCopy[i].crust.join('') && currentPizzaCopy[0].sauce.join('') === masterOrderListCopy[i].sauce.join('') && currentPizzaCopy[0].toppings.join('') === masterOrderListCopy[i].toppings.join('')) {
+        console.log("Pizza Matches #" + i)
+        return true;
+      }
+      // console.log(currentPizzaCopy[0].crust.join(''), masterOrderListCopy[i].crust.join(''), currentPizzaCopy[0].sauce.join('') , masterOrderListCopy[i].sauce.join('') , currentPizzaCopy[0].toppings.join('') ,masterOrderListCopy[i].toppings.join(''));
+      // console.log(currentPizzaCopy[0].crust.join('') === masterOrderListCopy[i].crust.join('') , currentPizzaCopy[0].sauce.join('') === masterOrderListCopy[i].sauce.join('') , currentPizzaCopy[0].toppings.join('') === masterOrderListCopy[i].toppings.join())
+    }
+    console.log("No matches, try again.")
+    return false;
+  }
+
+
   render() {
     return (
       <div>
@@ -223,23 +245,29 @@ class App extends React.Component {
           font-family: Helvetica;
         `}</style>
         <Header />
-
-        <PizzaTable
-          addCrustToCurrentPizza={this.addCrustToCurrentPizza}
-          addSauceToCurrentPizza={this.addSauceToCurrentPizza}
-          masterIngredientList={this.state.masterIngredientList}
-          getCrustName={this.getCrustName}
-          getSauceName={this.getSauceName}
-          getToppingName={this.getToppingName}
-          currentPizza={this.state.currentPizza}
-          addToppingsToCurrentPizza={this.addToppingsToCurrentPizza}
-          removeToppingsToCurrentPizza={this.removeToppingsToCurrentPizza}
-        />
-        <OrderList masterOrderList={this.state.masterOrderList} />
-        <Score />
-        {/* <Switch>
+        <div className='row container'>
+          <div className="col-6">
+            <PizzaTable
+              addCrustToCurrentPizza={this.addCrustToCurrentPizza}
+              addSauceToCurrentPizza={this.addSauceToCurrentPizza}
+              masterIngredientList={this.state.masterIngredientList}
+              getCrustName={this.getCrustName}
+              getSauceName={this.getSauceName}
+              getToppingName={this.getToppingName}
+              currentPizza={this.state.currentPizza}
+              addToppingsToCurrentPizza={this.addToppingsToCurrentPizza}
+              removeToppingsToCurrentPizza={this.removeToppingsToCurrentPizza}
+              handleMatchPizza={this.handleMatchPizza}
+            />
+          </div>
+          <div className='col-6'>
+            <Score />
+            <OrderList masterOrderList={this.state.masterOrderList} />
+          </div>
+          {/* <Switch>
           <Route exact path='/' component={} />
         </Switch> */}
+        </div>
       </div>
     );
 

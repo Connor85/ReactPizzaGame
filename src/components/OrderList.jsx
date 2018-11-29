@@ -5,11 +5,12 @@ import { v4 } from 'uuid';
 function OrderList(props){
   return(
     <div>
-      {props.masterOrderList.map((order) => (
+      {props.masterOrderList.map((order, index) => (
         <Order
           name={order.name}
           ingredients={order.ingredients}
           key={order.id}
+          index={index+1}
         />
 
 
