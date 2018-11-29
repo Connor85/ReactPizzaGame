@@ -148,7 +148,7 @@ class App extends React.Component {
 
 
   componentDidMount() {
-    this.pizzaTimer = setInterval(() => this.waitOrderNewPizza(), 5000);
+    this.pizzaTimer = setInterval(() => this.waitOrderNewPizza(), 10000);
   }
 
   componentWillUnmount() {

@@ -1,12 +1,6 @@
 import React from 'react';
 
 function CurrentPizza(props) {
-
-  function handleClickMatchPizza() {
-    props.handleMatchPizza();
-    console.log("RYAN");
-  }
-
   return (
     <div>
       <style jsx>{`
@@ -58,7 +52,7 @@ function CurrentPizza(props) {
             </h5>
           </div>
         ))}</h6>
-        <span onCLick={handleClickMatchPizza} className="btn btn-success">Check Order</span>
+        <span onClick={props.handleMatchPizza} className="btn btn-success">Check Order</span>
 
       </div>≈
     </div>
