@@ -7,13 +7,15 @@ function ToppingsList(props) {
     <div>
       <style jsx>{`
           .topList {
-            border: solid black 1px;
-            padding: 15px;
-            margin: 5px;
+
+            padding-bottom: 25px;
           }
           .topHeader {
             text-align: center;
             text-decoration: underline;
+            border: 1px black solid;
+            background: lightyellow;
+            height: 45px;
           }
         `}</style>
 
@@ -21,7 +23,7 @@ function ToppingsList(props) {
         {/* {console.log("toppingslist comp", props)} */}
         <h2 className='topHeader'>Toppings</h2>
         {props.masterToppingsList.map((topping) => (
-          <div className='row'>
+          <div >
             <Toppings
               type={topping.type}
               points={topping.points}

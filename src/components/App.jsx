@@ -6,6 +6,7 @@ import PizzaTable from './PizzaTable';
 import OrderList from './OrderList';
 import Score from './Score';
 import Moment from 'moment';
+import CurrentPizza from './CurrentPizza';
 
 /*
   import { Link } from 'react-router-dom';
@@ -48,7 +49,7 @@ class App extends React.Component {
           },
           {
             identifier: 2,
-            type: 'Garlic/Oil Spread',
+            type: 'Garlic/Oil',
             points: 2
           },
           {
@@ -70,7 +71,7 @@ class App extends React.Component {
           },
           {
             identifier: 2,
-            type: 'Canadian Bacon',
+            type: 'Candian Ham',
             points: 2
           },
           {
@@ -105,19 +106,12 @@ class App extends React.Component {
           },
         ],
       },
-      masterOrderList: [
-        // {
-        //   name: 'Deep Dish Pepperoni with red sauce',
-        //   crust: [2],v
-        //   sauce: [10],
-        //   toppings: [21, 23],
-        // }
-      ],
+      masterOrderList: [],
       currentPizza: [
         {
-          crust: [1],
-          sauce: [2],
-          toppings: [1],
+          crust: [],
+          sauce: [],
+          toppings: [],
         }
       ]
     };
@@ -147,9 +141,8 @@ class App extends React.Component {
     return this.state.masterIngredientList.masterToppingsList[nameIndex].type;
   }
 
-
   componentDidMount() {
-    this.pizzaTimer = setInterval(() => this.waitOrderNewPizza(), 10000);
+    this.pizzaTimer = setInterval(() => this.waitOrderNewPizza(), Math.random() * 7500 + 3500);
   }
 
   componentWillUnmount() {
@@ -225,15 +218,15 @@ class App extends React.Component {
       if (currentPizzaCopy[0].crust.join('') === masterOrderListCopy[i].crust.join('') && currentPizzaCopy[0].sauce.join('') === masterOrderListCopy[i].sauce.join('') && currentPizzaCopy[0].toppings.join('') === masterOrderListCopy[i].toppings.join('')) {
         console.log("Pizza Matches #" + i)
         totScore += 1 + masterOrderListCopy[i].toppings.length;
-        this.setState({ totalScore: totScore})
+        this.setState({ totalScore: totScore })
         currentPizzaCopy[0] = {
           crust: [0],
           sauce: [0],
           toppings: [],
         };
         console.log(totScore);
-        masterOrderListCopy.splice(i,1);
-        this.setState({ masterOrderList: masterOrderListCopy})
+        masterOrderListCopy.splice(i, 1);
+        this.setState({ masterOrderList: masterOrderListCopy })
         this.setState({ currentPizza: [currentPizzaCopy[0]] });
         return true;
       }
@@ -244,13 +237,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <style jsx>{`
-          font-family: Helvetica;
-        `}</style>
+      <div className="container">
         <Header />
-        <div className='row container'>
-          <div className="col-6">
+        <div className='row container d-flex'>
+          <div className="col-3">
             <PizzaTable
               addCrustToCurrentPizza={this.addCrustToCurrentPizza}
               addSauceToCurrentPizza={this.addSauceToCurrentPizza}
@@ -264,8 +254,18 @@ class App extends React.Component {
               handleMatchPizza={this.handleMatchPizza}
             />
           </div>
-          <div className='col-6'>
-            <Score totalScore={this.state.totalScore}/>
+          <div className='col-4'>
+            <CurrentPizza
+              getCrustName={this.getCrustName}
+              getSauceName={this.getSauceName}
+              getToppingName={this.getToppingName}
+              currentPizza={this.state.currentPizza}
+              removeToppingsToCurrentPizza={this.removeToppingsToCurrentPizza}
+              handleMatchPizza={this.handleMatchPizza}
+            />
+          </div>
+          <div className='col-5'>
+            <Score totalScore={this.state.totalScore} />
             <OrderList masterOrderList={this.state.masterOrderList} />
           </div>
           {/* <Switch>

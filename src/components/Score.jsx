@@ -7,7 +7,6 @@ function Score(props) {
           .score {
             text-align: center;
             border: 1px black solid;
-            margin: 5px;
             height: 75px;
             font-size: 45pt;
             background: lightyellow;

@@ -6,12 +6,13 @@ function Order(props) {
       <style jsx>{`
           .order {
             border: 1px black solid;
-            margin:5px;
             padding:10px;
+            margin-bottom: 10px;
+            background-color: white;
           }
           .orderNumber {
             border: 1px black solid;
-            font-size: 60px;
+            font-size: 40px;
             text-align: center;
           }
         `}</style>

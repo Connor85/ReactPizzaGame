@@ -2,9 +2,18 @@ import React from 'react';
 
 function Crust(props){
   return(
-    <div>
-      Type: {props.type} for - {props.points} points.
-      <button onClick={props.addCrustToCurrentPizza} className='btn btn-info'>Add {props.type}</button>
+    <div className="crust-type">
+    <style jsx>{`
+      .crust-type {
+        margin-bottom: 20px;
+      }
+      button {
+        margin-left:  20px;
+        float: right;
+      }
+    `}</style>
+      {props.type}
+      <button onClick={props.addCrustToCurrentPizza} className='btn btn-info'>Add</button>
       <br></br>
     </div>
   );

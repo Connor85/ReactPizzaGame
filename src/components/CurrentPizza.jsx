@@ -6,9 +6,9 @@ function CurrentPizza(props) {
       <style jsx>{`
           .tableGlobal {
             border: 1px black solid;
-            margin:5px;
             padding:10px;
             text-align: center;
+            background-color: white;
           }
           .toppings {
             font-size: 30px;
@@ -54,7 +54,7 @@ function CurrentPizza(props) {
         ))}</h6>
         <span onClick={props.handleMatchPizza} className="btn btn-success">Check Order</span>
 
-      </div>≈
+      </div>
     </div>
   );
 }
