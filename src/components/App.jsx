@@ -170,6 +170,7 @@ class App extends React.Component {
   }
 
   removeToppingsToCurrentPizza(index) {
+    console.log("removetoppings", index);
     let newCurrentPizza = this.state.currentPizza.slice();
     let location = newCurrentPizza[0].toppings.indexOf(index);
     if (location !== -1) {

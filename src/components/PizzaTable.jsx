@@ -23,13 +23,13 @@ function PizzaTable(props) {
         removeToppingsToCurrentPizza={props.removeToppingsToCurrentPizza}        
       />
       <hr />
-      {/* {console.log("pizzatable comp", props)} */}
+      {console.log("pizzatable comp", props)}
       <CurrentPizza
         getCrustName={props.getCrustName}
         getSaucetName={props.getSaucetName}
         getToppingtName={props.getToppingtName}
         currentPizza={props.currentPizza}
-        removeToppingsToCurrentPizza={props.removeToppingsToCurrentPizza}     
+        removeToppingsToCurrentPizza={props.removeToppingsToCurrentPizza}         
       />
     </div>
   )
