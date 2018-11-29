@@ -30,6 +30,7 @@ function CurrentPizza(props) {
         `}</style>
       <div className='tableGlobal'>
         <h3 className='currentHeader'>Current Pizza:</h3>
+        <span onClick={props.handleMatchPizza} className="btn btn-success">Check Order</span>
 
         <h4 className='topHeaders'>Crust:</h4>
         <h6>{props.currentPizza[0].crust.map((crust, index) => (
@@ -52,7 +53,6 @@ function CurrentPizza(props) {
             </h5>
           </div>
         ))}</h6>
-        <span onClick={props.handleMatchPizza} className="btn btn-success">Check Order</span>
 
       </div>
     </div>
