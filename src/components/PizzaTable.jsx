@@ -29,6 +29,7 @@ function PizzaTable(props) {
         getSaucetName={props.getSaucetName}
         getToppingtName={props.getToppingtName}
         currentPizza={props.currentPizza}
+        removeToppingsToCurrentPizza={props.removeToppingsToCurrentPizza}     
       />
     </div>
   )

@@ -1,6 +1,10 @@
 import React from 'react';
 
 function CurrentPizza(props) {
+
+  function onDeleteToppings(id) {
+    props.removeToppingsToCurrentPizza(id)
+  }
   return (
     <div>
       Current Pizza:
@@ -23,7 +27,9 @@ function CurrentPizza(props) {
       Toppings:
       <h6>{props.currentPizza[0].toppings.map((toppings) => (
         <div>
-          {props.getToppingtName(toppings)}
+          {props.getToppingtName(toppings)} <p onClick={onDeleteToppings(toppings)}>X-Delete</p>
+          <button onClick={onDeleteToppings(toppings)} className="btn btn-primary">Remove {toppings}</button>
+
           <br></br>
         </div>
         ))}</h6>
