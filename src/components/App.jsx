@@ -7,6 +7,7 @@ import OrderList from './OrderList';
 import Score from './Score';
 import Moment from 'moment';
 import CurrentPizza from './CurrentPizza';
+import StatusPane from './StatusPane';
 
 /*
   import { Link } from 'react-router-dom';
@@ -17,18 +18,19 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      statusString: "Orders Coming in...",
       totalScore: 0,
       masterIngredientList: {
         masterCrustList: [
           {
             identifier: 0,
-            type: 'Regular',
-            points: 7
+            type: 'Deep Dish',
+            points: 8
           },
           {
             identifier: 1,
-            type: 'Deep Dish',
-            points: 8
+            type: 'Regular',
+            points: 7
           },
           {
             identifier: 2,
@@ -39,69 +41,69 @@ class App extends React.Component {
         masterSauceList: [
           {
             identifier: 0,
-            type: 'Red Sauce',
-            points: 1
+            type: 'BBQ Sauce',
+            points: 3
           },
           {
             identifier: 1,
-            type: 'White Sauce',
-            points: 2
-          },
-          {
-            identifier: 2,
             type: 'Garlic/Oil',
             points: 2
           },
           {
+            identifier: 2,
+            type: 'Red Sauce',
+            points: 1
+          },
+          {
             identifier: 3,
-            type: 'BBQ Sauce',
-            points: 3
+            type: 'White Sauce',
+            points: 2
           }
         ],
         masterToppingsList: [
           {
             identifier: 0,
-            type: 'Pepperoni',
-            points: 2
+            type: 'Bacon',
+            points: 3
           },
           {
             identifier: 1,
-            type: 'Sausage',
-            points: 2
-          },
-          {
-            identifier: 2,
             type: 'Candian Ham',
             points: 2
           },
           {
-            identifier: 3,
-            type: 'Olives',
-            points: 3
-          },
-          {
-            identifier: 4,
-            type: 'Pineapple',
-            points: 3
-          },
-          {
-            identifier: 5,
-            type: 'Red Onions',
-            points: 3
-          },
-          {
-            identifier: 6,
-            type: 'Mushrooms',
-            points: 3
-          },
-          {
-            identifier: 7,
+            identifier: 2,
             type: 'Chicken',
             points: 3
           },
           {
+            identifier: 3,
+            type: 'Mushrooms',
+            points: 3
+          },
+          {
+            identifier: 4,
+            type: 'Olives',
+            points: 3
+          },
+          {
+            identifier: 5,
+            type: 'Pepperoni',
+            points: 2
+          },
+          {
+            identifier: 6,
+            type: 'Pineapple',
+            points: 3
+          },
+          {
+            identifier: 7,
+            type: 'Sausage',
+            points: 2
+          },
+          {
             identifier: 8,
-            type: 'Bacon',
+            type: 'Red Onions',
             points: 3
           },
         ],
@@ -109,8 +111,8 @@ class App extends React.Component {
       masterOrderList: [],
       currentPizza: [
         {
-          crust: [],
-          sauce: [],
+          crust: [0],
+          sauce: [0],
           toppings: [],
         }
       ]
@@ -142,7 +144,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.pizzaTimer = setInterval(() => this.waitOrderNewPizza(), Math.random() * 7500 + 3500);
+    this.pizzaTimer = setInterval(() => this.waitOrderNewPizza(), Math.random() * 7500 + 4500);
   }
 
   componentWillUnmount() {
@@ -166,7 +168,6 @@ class App extends React.Component {
   }
 
   removeToppingsToCurrentPizza(index) {
-    // console.log("removetoppings", index);
     let newCurrentPizza = this.state.currentPizza.slice();
     let location = newCurrentPizza[0].toppings.indexOf(index);
     if (location !== -1) {
@@ -190,7 +191,7 @@ class App extends React.Component {
   generateNewPizza() {
     let newCrustIndex = Math.floor((Math.random() * this.state.masterIngredientList.masterCrustList.length));
     let newSauceIndex = Math.floor((Math.random() * this.state.masterIngredientList.masterSauceList.length));
-    let randomToppingQuantity = Math.ceil((Math.random() * 2) + 1)
+    let randomToppingQuantity = Math.ceil((Math.random() * 2) + 2)
     let newToppings = [];
     let newToppingsName = '';
     let toppingLength = this.state.masterIngredientList.masterToppingsList.length;
@@ -214,24 +215,24 @@ class App extends React.Component {
     currentPizzaCopy[0].toppings.sort((a, b) => (a - b));
     for (let i = 0; i < this.state.masterOrderList.length - 1; i++) {
       masterOrderListCopy[i].toppings.sort((a, b) => (a - b));
-      let totScore = 0;
+      let newPoints = 0;
       if (currentPizzaCopy[0].crust.join('') === masterOrderListCopy[i].crust.join('') && currentPizzaCopy[0].sauce.join('') === masterOrderListCopy[i].sauce.join('') && currentPizzaCopy[0].toppings.join('') === masterOrderListCopy[i].toppings.join('')) {
-        console.log("Pizza Matches #" + i)
-        totScore += 1 + masterOrderListCopy[i].toppings.length;
-        this.setState({ totalScore: totScore })
+        newPoints += 1 + masterOrderListCopy[i].toppings.length;
+        this.setState({ statusString: "You filled order #" + i + " and get +" + newPoints + " points!" });
+        const scoreToUpdate = this.state.totalScore + newPoints;
+        this.setState({ totalScore: scoreToUpdate })
         currentPizzaCopy[0] = {
           crust: [0],
           sauce: [0],
           toppings: [],
         };
-        console.log(totScore);
         masterOrderListCopy.splice(i, 1);
         this.setState({ masterOrderList: masterOrderListCopy })
         this.setState({ currentPizza: [currentPizzaCopy[0]] });
         return true;
       }
     }
-    console.log("No matches, try again.")
+    this.setState({ statusString: "Pizza does not match any order." });
     return false;
   }
 
@@ -255,6 +256,7 @@ class App extends React.Component {
             />
           </div>
           <div className='col-4'>
+            <StatusPane statusString={this.state.statusString} />
             <CurrentPizza
               getCrustName={this.getCrustName}
               getSauceName={this.getSauceName}

@@ -9,6 +9,8 @@ function CurrentPizza(props) {
             padding:10px;
             text-align: center;
             background-color: white;
+            height: 770px;
+            overflow-y: scroll;
           }
           .toppings {
             font-size: 30px;
